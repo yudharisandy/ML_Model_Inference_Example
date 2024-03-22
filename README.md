@@ -5,10 +5,10 @@ A repo for showcasing a way to inference a ML model.
 ## Detection result 
 
 ### Raw Image
-![raw-image](dog.jpg)
+![raw-image](data/dog.jpg)
 
 ### Detection Result
-![detection-result](result_0.jpg)
+![detection-result](result/result_0.jpg)
 
 
 ## Docker Related Explainations
