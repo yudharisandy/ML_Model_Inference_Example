@@ -7,7 +7,7 @@
 from ultralytics import YOLO
 
 # Load a model
-model = YOLO('yolov8n.pt')  # pretrained YOLOv8n model
+model = YOLO('./model/yolov8n.pt')  # pretrained YOLOv8n model
 
 # Image file name
 fileName = './data/dog.jpg'
