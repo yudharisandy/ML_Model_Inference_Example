@@ -5,6 +5,7 @@
 # wget https://raw.githubusercontent.com/yudharisandy/ML_Model_Inference_Example/main/dog.jpg
 
 from ultralytics import YOLO
+from utility.utility import ShowResult
 
 # Load a model
 model = YOLO('./model/yolov8n.pt')  # pretrained YOLOv8n model
@@ -14,15 +15,6 @@ fileName = './data/dog.jpg'
 
 # Run batched inference on a list of images
 results = model(fileName)  # return a list of Results objects
-
-# Functionize the show result method
-def ShowResult(result, index: int):
-    boxes = result.boxes  # Boxes object for bounding box outputs
-    masks = result.masks  # Masks object for segmentation masks outputs
-    keypoints = result.keypoints  # Keypoints object for pose outputs
-    probs = result.probs  # Probs object for classification outputs
-    result.show()  # display to screen
-    result.save(filename=f'./result/result_{index}.jpg')  # save to disk
 
 # Process results list
 index = 0
