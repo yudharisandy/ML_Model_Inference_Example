@@ -30,7 +30,6 @@ for result in results:
   ShowResult(result, index)
   index += 1
 ```
-[Reference](https://docs.ultralytics.com/modes/predict/#__tabbed_1_1).
 
 ### Utility
 Additional method:
@@ -53,10 +52,12 @@ Three basic components of docker:
 ```Dockerfile``` -> ```Image``` -> ```Container```
 
 ```Dockerfile```: Contains a blueprint of an image.
+
 ```Image```: An immutable snapshot that includes everything needed to run a container.
+
 ```Container```:  A lightweight and executable runtime instance of an image.
 
-Before run the next few steps, make sure docker has successfully installed in your machine. If not, please refer to [this](https://docs.docker.com/engine/install/). Reference for [setup GPU](https://docs.ultralytics.com/guides/docker-quickstart/#installing-nvidia-docker-runtime).
+Before run the next few steps, make sure docker has successfully installed in your machine.
 
 Nb: I used Docker Desktop for Windows.
 
@@ -85,14 +86,13 @@ RUN pip install --no-cache-dir ultralytics
 CMD ["python", "main.py"]
 ```
 
-More complete informations can be found [here](https://docs.docker.com/reference/dockerfile/).
-
 ### Build a Dockerfile into an Image
 Build a docker image from a Dockerfile could be done with the following command.
 
 ``` docker build -t yolo-app .```
 
 Notes:
+
 ```-t yolo-app``` is the resulting image name and ``` .``` indicates the build context, which is the directory containing the Dockerfile and any files needed during the build process. In this example, the Dockerfile is assumed to be in the current directory.
 
 ### Run an Image as a Container
@@ -103,10 +103,15 @@ Can do with the following command:
 ``` docker run --rm --gpus all -v .:/app yolo-app```
 
 Notes:
+
 ```-rm```: Remove the container once the code has been run.
+
 ```--gpus all```: State to run the code on all available GPU(s) in our machine.
+
 ```-v .:/app```: This flag mounts the current directory (where the docker run command is executed) to the ```/app``` directory inside the container. 
+
 ```yolo-app```: The docker image name that will be run as a container.
+
 ```--gpus all```: The code will be run on ```all``` available gpus(s).
 
 
