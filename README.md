@@ -98,23 +98,18 @@ Notes:
 ```-t yolo-app``` is the resulting image name and ``` .``` indicates the build context, which is the directory containing the Dockerfile and any files needed during the build process. In this example, the Dockerfile is assumed to be in the current directory.
 
 ### Run an Image as a Container
-Can do with the following command:
+Can be done with the following command:
 ``` docker run --rm -v .:/app yolo-app```
 
-*Later, when the machine has already GPU setup and the GPU support image, the following command can be used to run docker using gpus:
+*Later, when the machine has already GPU setup and the GPU support image, the following command can be used to run docker using gpu(s):
 ``` docker run --rm --gpus all -v .:/app yolo-app```
 
 Notes:
-
-```-rm```: Remove the container once the code has been run.
-
-```--gpus all```: State to run the code on all available GPU(s) in our machine.
-
-```-v .:/app```: This flag mounts the current directory (where the docker run command is executed) to the ```/app``` directory inside the container. 
-
-```yolo-app```: The docker image name that will be run as a container.
-
-```--gpus all```: The code will be run on ```all``` available gpu(s).
+- ```-rm```: Remove the container once the code has been run.
+- ```--gpus all```: State to run the code on all available GPU(s) in our machine.
+- ```-v .:/app```: This flag mounts the current directory (where the docker run command is executed) to the ```/app``` directory inside the container. 
+- ```yolo-app```: The docker image name that will be run as a container.
+- ```--gpus all```: The code will be run on ```all``` available gpu(s).
 
 
 ## Test the Solution
