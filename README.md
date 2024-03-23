@@ -56,7 +56,7 @@ Three basic components of docker:
 ```Image```: An immutable snapshot that includes everything needed to run a container.
 ```Container```:  A lightweight and executable runtime instance of an image.
 
-Before run the next few steps, make sure docker has successfully installed in your machine. If not, please refer to [this](https://docs.docker.com/engine/install/).
+Before run the next few steps, make sure docker has successfully installed in your machine. If not, please refer to [this](https://docs.docker.com/engine/install/). Reference for [setup GPU](https://docs.ultralytics.com/guides/docker-quickstart/#installing-nvidia-docker-runtime).
 
 Nb: I used Docker Desktop for Windows.
 
@@ -64,35 +64,6 @@ Nb: I used Docker Desktop for Windows.
 
 Create a ```Dockerfile``` file in the directory, and fill with the following code. 
 
-GPU Support:
-```
-# Use a base image with CUDA support
-FROM nvidia/cuda:12.3.2-cudnn9-runtime-centos7
-
-# Set the working directory in the container
-WORKDIR /app
-
-# Install system dependencies
-RUN apt-get update && \
-    apt-get install -y libgl1-mesa-glx libglib2.0-0
-
-# Install Python and pip
-RUN apt-get install -y python3 python3-pip
-
-# Copy the local code to the container
-COPY . /app
-
-# Install GPU dependencies
-RUN pip3 install --no-cache-dir torch==1.10.0+cu113 torchvision==0.11.1+cu113 -f https://download.pytorch.org/whl/cu113/torch_stable.html
-
-# Install CPU dependencies
-RUN pip3 install --no-cache-dir ultralytics
-
-# Command to run the application
-CMD ["python3", "main.py"]
-```
-
-No GPU Support:
 ```
 # Use a base image with Python 3.10.14 and necessary dependencies
 FROM python:3.10.14-slim-bookworm
@@ -119,20 +90,24 @@ More complete informations can be found [here](https://docs.docker.com/reference
 ### Build a Dockerfile into an Image
 Build a docker image from a Dockerfile could be done with the following command.
 
-``` docker build -t yolomodel .```
+``` docker build -t yolo-app .```
 
 Notes:
-```-t yolomodel``` is the resulting image name and ``` .``` indicates the build context, which is the directory containing the Dockerfile and any files needed during the build process. In this example, the Dockerfile is assumed to be in the current directory.
+```-t yolo-app``` is the resulting image name and ``` .``` indicates the build context, which is the directory containing the Dockerfile and any files needed during the build process. In this example, the Dockerfile is assumed to be in the current directory.
 
 ### Run an Image as a Container
 Can do with the following command:
-``` docker run --rm --gpus all -v .:/app yolomodel```
+``` docker run --rm -v .:/app yolo-app```
+
+*Later, when the machine has already GPU setup and the GPU support image, the following command can be used to run docker using gpus:
+``` docker run --rm --gpus all -v .:/app yolo-app```
 
 Notes:
 ```-rm```: Remove the container once the code has been run.
 ```--gpus all```: State to run the code on all available GPU(s) in our machine.
 ```-v .:/app```: This flag mounts the current directory (where the docker run command is executed) to the ```/app``` directory inside the container. 
-```yolomodel```: The docker image name that will be run as a container.
+```yolo-app```: The docker image name that will be run as a container.
+```--gpus all```: The code will be run on ```all``` available gpus(s).
 
 
 ## Test the Solution
@@ -144,3 +119,37 @@ Notes:
 
 ## Next Step to Optimize the Solution
 - Performance Optimization: Analyze the performance metrics gathered during testing and identify bottlenecks in the inference process. Optimize the YOLO model, code, and Docker configuration to improve inference speed and resource utilization.
+
+
+## Install GPU in Docker
+
+### GPU Installation
+```
+# Add NVIDIA package repositories 
+curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | sudo apt-key add - 
+distribution=$(lsb_release -cs)
+curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.list | sudo tee /etc/apt/sources.list.d/nvidia-docker.list
+
+# Install NVIDIA Docker runtime
+sudo apt-get update
+sudo apt-get install -y nvidia-docker2
+
+# Restart Docker service to apply changes
+sudo systemctl restart docker
+```
+
+### Inferencing YOLO using Docker with GPU
+- First option: pull the available image from Ultralytics.
+```
+# Pull the latest Ultralytics image from Docker Hub
+sudo docker pull ultralytics/ultralytics:latest
+
+# Run with all GPU(s)
+sudo docker run -it --ipc=host --gpus all -v .:/app ultralytics/ultralytics:latest
+```
+
+- Second option: Create our own Dockerfile and use the appropriate base image to make GPU support available in our later container.
+
+
+## Important Note
+- ```docker system prune```: To delete chache, etc.
