@@ -3,6 +3,14 @@ A repository for showcasing a way to inference an object detection model (YOLO) 
 
 The raw image is located in ```./data/dog.jpg```. The detection result image is located in ```./result/result_0.jpg```.
 
+## Outline
+- [Detection Result Example](#detection-result-example)
+- [Inferencing YOLO](#inferencing-yolo)
+- [Docker Related Explainations](#docker-related-explainations)
+- [Test the Solution](#test-the-solution)
+- [Next Step to Optimize the Solution](#next-step-to-optimize-the-solution)
+- [GPU Utilization](#gpu-utilization)
+- [Important Notes](#important-note) 
 
 ## Detection Result Example
 ![detection-result](result/result_0.jpg)
