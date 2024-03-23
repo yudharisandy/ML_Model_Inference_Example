@@ -115,7 +115,7 @@ Notes:
 - Performance Optimization: Analyze the performance metrics gathered during testing and identify bottlenecks in the inference process. Optimize the YOLO model, code, and Docker configuration to improve inference speed and resource utilization.
 
 
-## Install GPU in Docker
+## GPU Utilization
 
 ### GPU Installation
 ```
