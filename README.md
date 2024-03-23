@@ -1,6 +1,8 @@
 # YOLO Model Inference with Docker
 A repository for showcasing a way to inference an object detection model (YOLO) using docker containerization technique.
 
+The raw image is located in ```./data/dog.jpg```. The detection result image is located in ```./result/result_0.jpg```.
+
 
 ## Detection Result Example
 ![detection-result](result/result_0.jpg)
@@ -112,7 +114,7 @@ Notes:
 
 ```yolo-app```: The docker image name that will be run as a container.
 
-```--gpus all```: The code will be run on ```all``` available gpus(s).
+```--gpus all```: The code will be run on ```all``` available gpu(s).
 
 
 ## Test the Solution
@@ -144,7 +146,7 @@ sudo systemctl restart docker
 ```
 
 ### Inferencing YOLO using Docker with GPU
-- First option: pull the available image from Ultralytics.
+- First option: pull the available image from Ultralytics Docker Hub.
 ```
 # Pull the latest Ultralytics image from Docker Hub
 sudo docker pull ultralytics/ultralytics:latest
