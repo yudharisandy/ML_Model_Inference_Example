@@ -51,13 +51,10 @@ def ShowResult(result, index: int):
 
 ### Briefly About Docker
 Three basic components of docker:
-```Dockerfile``` -> ```Image``` -> ```Container```
-
-```Dockerfile```: Contains a blueprint of an image.
-
-```Image```: An immutable snapshot that includes everything needed to run a container.
-
-```Container```:  A lightweight and executable runtime instance of an image.
+- ```Dockerfile``` -> ```Image``` -> ```Container```.
+- ```Dockerfile```: Contains a blueprint of an image.
+- ```Image```: An immutable snapshot that includes everything needed to run a container.
+- ```Container```:  A lightweight and executable runtime instance of an image.
 
 Before run the next few steps, make sure docker has successfully installed in your machine.
 
@@ -89,20 +86,15 @@ CMD ["python", "main.py"]
 ```
 
 ### Build a Dockerfile into an Image
-Build a docker image from a Dockerfile could be done with the following command.
-
-``` docker build -t yolo-app .```
+Build a docker image from a Dockerfile could be done using ``` docker build -t yolo-app .``` command.
 
 Notes:
-
-```-t yolo-app``` is the resulting image name and ``` .``` indicates the build context, which is the directory containing the Dockerfile and any files needed during the build process. In this example, the Dockerfile is assumed to be in the current directory.
+- ```-t yolo-app``` is the resulting image name and ``` .``` indicates the build context, which is the directory containing the Dockerfile and any files needed during the build process. In this example, the Dockerfile is assumed to be in the current directory.
 
 ### Run an Image as a Container
-Can be done with the following command:
-``` docker run --rm -v .:/app yolo-app```
+Can be done using ``` docker run --rm -v .:/app yolo-app``` command.
 
-*Later, when the machine has already GPU setup and the GPU support image, the following command can be used to run docker using gpu(s):
-``` docker run --rm --gpus all -v .:/app yolo-app```
+*Later, when the machine has already GPU setup and the GPU support image, the following command can be used to run docker using gpu(s): ``` docker run --rm --gpus all -v .:/app yolo-app```.
 
 Notes:
 - ```-rm```: Remove the container once the code has been run.
